@@ -1,25 +1,28 @@
-# @digitalascetic/ngx-pica
-> @digitalascetic/ngx-pica is an Angular (LTS) module to resize images files in browser using <a href="https://github.com/nodeca/pica">pica - high quality image resize in browser</a>.
+# ngx-tooning-pica
 
-[![latest](https://img.shields.io/npm/v/%40digitalascetic/ngx-pica/latest.svg)](https://www.npmjs.com/package/@digitalascetic/ngx-pica) 
+>ngx-tooning-pica is an Angular (LTS) module to resize images files in ionic webview  using <a href="https://github.com/nodeca/pica">pica - high quality image resize in browser</a>.
+
+> ionic has <a href="https://github.com/ionic-team/ionic-native/issues/505">FileReader issue</a>
+
+[![latest](https://img.shields.io/npm/v/ngx-tooning-pica)](https://www.npmjs.com/package/ngx-tooning-pica) 
 
 ## Important
-@toonsquare/ngx-pica Angular 5 compatibility is under version **1.1.8**  
+ngx-tooning-pica Angular 5 compatibility is under version **1.1.8**  
 ```bash
-$ npm install @digitalascetic/ngx-pica@1.1.8 --save
+$ npm install ngx-tooning-pica --save
 ```
 
 ## Install
-1. Add `ngx-pica` module as dependency to your project.
+1. Add `ngx-tooning-pica` module as dependency to your project.
 ```bash
-$ npm install pica exifr @toonsquare/ngx-pica --save
+$ npm install pica exifr ngx-tooning-pica --save
 ```
 2. Include `NgxPicaModule` into your main AppModule or in module where you will use it.
 ```
 // app.module.ts
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgxPicaModule } from '@toonsquare/ngx-pica';
+import { NgxPicaModule } from 'ngx-tooning-pica';
 
 @NgModule({
   imports: [
@@ -129,7 +132,7 @@ export interface NgxPicaErrorInterface {
 
 ```ts
 import { Component, EventEmitter } from '@angular/core';
-import { NgxPicaService } from '@toonsquare/ngx-pica';
+import { NgxPicaService } from 'ngx-tooning-pica';
 
 @Component({
   selector: 'app-home',

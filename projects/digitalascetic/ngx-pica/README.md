@@ -1,25 +1,28 @@
-# @toonsquare/ngx-pica
-> @toonsquare/ngx-pica is an Angular (LTS) module to resize images files in browser using <a href="https://github.com/nodeca/pica">pica - high quality image resize in browser</a>.
+# ngx-tooning-pica
 
-[![latest](https://img.shields.io/npm/v/%40toonsquare/ngx-pica/latest.svg)](https://www.npmjs.com/package/@toonsquare/ngx-pica) 
+>ngx-tooning-pica is an Angular (LTS) module to resize images files in ionic webview  using <a href="https://github.com/nodeca/pica">pica - high quality image resize in browser</a>.
+
+> ionic has <a href="https://github.com/ionic-team/ionic-native/issues/505">FileReader issue</a>
+
+[![latest](https://img.shields.io/npm/v/ngx-tooning-pica)](https://www.npmjs.com/package/ngx-tooning-pica) 
 
 ## Important
-@toonsquare/ngx-pica Angular 5 compatibility is under version **1.1.8**  
+ngx-tooning-pica Angular 5 compatibility is under version **1.1.8**  
 ```bash
-$ npm install @toonsquare/ngx-pica@1.1.8 --save
+$ npm install ngx-tooning-pica --save
 ```
 
 ## Install
-1. Add `ngx-pica` module as dependency to your project.
+1. Add `ngx-tooning-pica` module as dependency to your project.
 ```bash
-$ npm install pica exifr @toonsquare/ngx-pica --save
+$ npm install pica exifr ngx-tooning-pica --save
 ```
 2. Include `NgxPicaModule` into your main AppModule or in module where you will use it.
 ```
 // app.module.ts
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgxPicaModule } from '@toonsquare/ngx-pica';
+import { NgxPicaModule } from 'ngx-tooning-pica';
 
 @NgModule({
   imports: [
@@ -44,9 +47,12 @@ This method resize an array of images doing it sequentially to optimize CPU and 
 * **files:[]** - Array of images to resize
 * **width** - Width to be resized (px)
 * **height** - Height to be resized (px)
-* **options** - Based on <a href="https://github.com/nodeca/pica#resizefrom-to-options---promise">pica - resize options</a>, we've also added aspect ratio options: 
-    * **keepAspectRatio** - Set true to ensure the aspect ratio of the image is maintained as it get resized
-    * **forceMinDimensions** - Set true to ensure the dimensions of image resized will be greater than width and height values defined
+* **options** - Based on <a href="https://github.com/nodeca/pica#resizefrom-to-options---promise">pica - resize options</a>, we've also added exif and aspect ratio options:
+    * **exifOptions**:    
+        * **forceExifOrientation** - [default: true] Set false to avoid image orientation from Exif info.
+    * **aspectRatio**:     
+        * **keepAspectRatio** - Set true to ensure the aspect ratio of the image is maintained as it get resized
+        * **forceMinDimensions** - Set true to ensure the dimensions of image resized will be greater than width and height values defined
 
 The Observable receives a next on every file that has been resized.
 If something goes wrong the Observable receive an error.
@@ -56,17 +62,20 @@ All errors are wrapped by NgxPicaErrorInterface.
 ### `.resizeImage(file: File, width: number, height: number, options?: NgxPicaResizeOptionsInterface): Observable<File>`
 Same as above but only takes one file instead of an array of files.
 
-### `.compressImages(files: File[], sizeInMB: number): Observable<File>`
+### `.compressImages(files: File[], sizeInMB: number, options?: NgxPicaCompressOptionsInterface): Observable<File>`
 This method compress an array of images doing it sequentially to optimize CPU and memory use.
 * **files:[]** - Array of images to resize
 * **sizeInMB** - File size in MegaBytes
+* **options** - Same as resize options, but only for exif orientation:
+    * **exifOptions**:    
+        * **forceExifOrientation** - [default: true] Set false to avoid image orientation from Exif info.
 
 The Observable receives a next on every file that has been resized.
 If something goes wrong the Observable receive an error.
 
 All errors are wrapped by NgxPicaErrorInterface.
 
-### `.compressImage(file: File, sizeInMB: number): Observable<File>`
+### `.compressImage(file: File, sizeInMB: number, options?: NgxPicaCompressOptionsInterface): Observable<File>`
 Same as above but only takes one file instead of an array of files.
 
 ## NgxPicaImageService Methods
@@ -74,6 +83,12 @@ Same as above but only takes one file instead of an array of files.
 This method check if a file is an image or not
 
 ## Data Structures
+```
+export interface ExifOptions {
+  forceExifOrientation: boolean;
+}
+```
+
 ```
 export interface AspectRatioOptions {
     keepAspectRatio: boolean;
@@ -83,6 +98,7 @@ export interface AspectRatioOptions {
 
 ```
 export interface NgxPicaResizeOptionsInterface {
+    exifOptions: ExifOptions;
     aspectRatio?: AspectRatioOptions;
     quality?: number;
     alpha?: boolean;
@@ -91,6 +107,13 @@ export interface NgxPicaResizeOptionsInterface {
     unsharpThreshold?: number;
 }
 ```
+
+```
+export interface NgxPicaCompressOptionsInterface {
+  exifOptions: ExifOptions;
+}
+```
+
 ```
 export enum NgxPicaErrorType {
     NO_FILES_RECEIVED = 'NO_FILES_RECEIVED',
@@ -109,7 +132,7 @@ export interface NgxPicaErrorInterface {
 
 ```ts
 import { Component, EventEmitter } from '@angular/core';
-import { NgxPicaService } from '@toonsquare/ngx-pica';
+import { NgxPicaService } from 'ngx-tooning-pica';
 
 @Component({
   selector: 'app-home',
