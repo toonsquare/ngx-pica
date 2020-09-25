@@ -8,7 +8,7 @@ import {
 } from './ngx-pica-resize-options.interface';
 import {NgxPicaExifService} from './ngx-pica-exif.service';
 import Pica from 'pica';
-import {switchMap} from "rxjs/operators";
+import {switchMap} from 'rxjs/operators';
 
 
 declare let window: any;
@@ -74,7 +74,16 @@ export class NgxPicaService {
     const originCanvas: HTMLCanvasElement = document.createElement('canvas');
     const ctx = originCanvas.getContext('2d');
     const img = new Image();
-    const reader: FileReader = new FileReader();
+    let reader: FileReader = new FileReader();
+
+    // this is ionic bug
+
+    // Is this a "real" file? In other words, is this an instance of the original `File` class (not the one overriden by cordova-plugin-file).
+    // If so, then we need to use the "real" FileReader (not the one overriden by cordova-plugin-file).
+    const realFileReader = (reader as any)._realReader;
+    if (realFileReader) {
+      reader = realFileReader;
+    }
 
     if (!options) {
       options = {

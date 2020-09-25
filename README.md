@@ -4,7 +4,7 @@
 [![latest](https://img.shields.io/npm/v/%40digitalascetic/ngx-pica/latest.svg)](https://www.npmjs.com/package/@digitalascetic/ngx-pica) 
 
 ## Important
-@digitalascetic/ngx-pica Angular 5 compatibility is under version **1.1.8**  
+@toonsquare/ngx-pica Angular 5 compatibility is under version **1.1.8**  
 ```bash
 $ npm install @digitalascetic/ngx-pica@1.1.8 --save
 ```
@@ -12,14 +12,14 @@ $ npm install @digitalascetic/ngx-pica@1.1.8 --save
 ## Install
 1. Add `ngx-pica` module as dependency to your project.
 ```bash
-$ npm install pica exifr @digitalascetic/ngx-pica --save
+$ npm install pica exifr @toonsquare/ngx-pica --save
 ```
 2. Include `NgxPicaModule` into your main AppModule or in module where you will use it.
 ```
 // app.module.ts
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgxPicaModule } from '@digitalascetic/ngx-pica';
+import { NgxPicaModule } from '@toonsquare/ngx-pica';
 
 @NgModule({
   imports: [
@@ -129,7 +129,7 @@ export interface NgxPicaErrorInterface {
 
 ```ts
 import { Component, EventEmitter } from '@angular/core';
-import { NgxPicaService } from '@digitalascetic/ngx-pica';
+import { NgxPicaService } from '@toonsquare/ngx-pica';
 
 @Component({
   selector: 'app-home',
